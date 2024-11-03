@@ -1,6 +1,10 @@
 {
   "name": "angular-starter",
   "private": true,
+  "browserslist": [
+    "defaults and fully supports es6-module",
+    "maintained node versions"
+  ],
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
