@@ -7,15 +7,18 @@ import { of, concat, fromEvent, Observable } from 'rxjs';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements AfterViewInit{
+export class AppComponent implements OnInit, AfterViewInit{
   // Simulated API call (takes 2 seconds to respond)
-  fakeApiCall = (id:number) => of(`Response from API: ${id}`).pipe(delay(2000));
+  fakeApiCall= (id:number) => of(`Response from API: ${id}`).pipe(delay(2000));
+  clicks$!: Observable<Event>;
 
-  // Button element
-  button = document.querySelector('button');
-
-  // Stream of button clicks
-  clicks$ = fromEvent(this.button!, 'click');
+  ngOnInit(): void {
+    this.fakeApiCall = (id:number) => of(`Response from API: ${id}`).pipe(delay(2000));
+    const button = document.querySelector('button');
+    if (button) {
+      this.clicks$ = fromEvent(button, 'click');
+    }
+  }
 
   ngAfterViewInit(): void {
     this.mergeMap();
